@@ -10,7 +10,7 @@ services:
   coletor:
     # Versão fixa, nunca `latest`: a atualização do agente é um ato
     # combinado com o hospital, não algo que acontece sozinho num restart.
-    image: ghcr.io/medemerge/coletor:1.0.2
+    image: ghcr.io/medemerge/coletor:1.0.3
     container_name: medemerge-coletor
     restart: unless-stopped
 

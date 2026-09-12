@@ -90,7 +90,7 @@ A imagem embute o **Oracle Instant Client**, necessário para autenticar em banc
 Os metadados ficam nos labels OCI da imagem:
 
 ```bash
-docker inspect ghcr.io/medemerge/coletor:1.0.2 --format '{{json .Config.Labels}}'
+docker inspect ghcr.io/medemerge/coletor:1.0.3 --format '{{json .Config.Labels}}'
 ```
 
 ## Suporte
