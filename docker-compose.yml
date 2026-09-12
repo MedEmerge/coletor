@@ -1,0 +1,33 @@
+# MedEmerge — Agente coletor
+# Instalação: coloque este arquivo e o credentials.yaml na mesma pasta e rode:
+#
+#   docker compose up -d
+#
+# Firewall: liberar apenas saída HTTPS para api.medemerge.com.br e acesso ao
+# banco interno. Nenhuma porta de entrada é aberta.
+
+services:
+  coletor:
+    # Versão fixa, nunca `latest`: a atualização do agente é um ato
+    # combinado com o hospital, não algo que acontece sozinho num restart.
+    image: ghcr.io/medemerge/coletor:1.0.2
+    container_name: medemerge-coletor
+    restart: unless-stopped
+
+    volumes:
+      # Identidade do agente — somente leitura.
+      - ./credentials.yaml:/etc/medemerge/credentials.yaml:ro
+      # Fila de reenvio; sobrevive a restart do container.
+      - buffer:/var/lib/medemerge
+
+    environment:
+      MEDEMERGE_LOG_LEVEL: INFO
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+volumes:
+  buffer:
